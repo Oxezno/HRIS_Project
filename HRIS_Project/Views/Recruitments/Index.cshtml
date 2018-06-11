@@ -1,0 +1,90 @@
+﻿@model HRIS_Project.Models.RecruiterCl
+
+@{
+    ViewBag.Title = "Recruiters";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Recruiters</h2>
+
+<p>
+    @Html.ActionLink("Create New Recruiter", "Index", new { id = 0, mode = "Create" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Paternal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Password)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateCreate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.isAdmin)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.RecruiterList) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Paternal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Password)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateCreate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.isAdmin)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Index", new { id = item.idUser_, mode = "Edit" }) |
+            @Html.ActionLink("Details", "Index", new { id = item.idUser_, mode = "Details" }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.idUser_}, new { onclick = "return confirm('Are you sure you wish to delete this Company?');" })
+        </td>
+    </tr>
+}
+
+</table>
+
+@{
+    if (Model.RecruiterList != null)
+    {
+        if (Model.DisplayMode == "Edit")
+        {
+            Html.RenderPartial("_Recruiters/_EditRecruiters", Model.SelectedRecruiter);
+        }
+        if (Model.DisplayMode == "Details")
+        {
+            Html.RenderPartial("_Recruiters/_DetailsRecruiters", Model.SelectedRecruiter);
+        }
+        if (Model.DisplayMode == "Create")
+        {
+            Html.RenderPartial("_Recruiters/_CreateRecruiters");
+        }
+
+
+    }
+}
